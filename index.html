@@ -50,9 +50,14 @@
 html,body{height:100%;}
 body{
   background-color:var(--bg-base);
+  /* Se integra fondo.jpg como la capa base, debajo de los gradientes de textura */
   background-image:
     radial-gradient(ellipse 900px 460px at 50% -8%, rgba(168,86,127,.12), transparent 62%),
-    repeating-linear-gradient(135deg, rgba(243,234,217,.025) 0px, rgba(243,234,217,.025) 1px, transparent 1px, transparent 11px);
+    repeating-linear-gradient(135deg, rgba(243,234,217,.025) 0px, rgba(243,234,217,.025) 1px, transparent 1px, transparent 11px),
+    url('fondo.jpg');
+  background-size: auto, auto, cover;
+  background-position: center, center, center;
+  background-attachment: fixed;
   color:var(--text-main);
   font-family:var(--sans);
   line-height:1.65;
@@ -327,7 +332,6 @@ td strong{color:var(--cordillera-text);}
 </head>
 <body>
 
-<!-- ============ ICON SPRITE (oculto) ============ -->
 <svg class="icon-defs" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
 <defs>
 <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3h7l4 4v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 16h6"/></symbol>
@@ -351,7 +355,6 @@ td strong{color:var(--cordillera-text);}
 
 <div class="app">
 
-  <!-- ============ SIDEBAR ============ -->
   <aside class="sidebar" id="sidebar">
     <div class="brand">
       <div class="brand-name">Intervención<br>Intercultural</div>
@@ -384,14 +387,12 @@ td strong{color:var(--cordillera-text);}
 
   <div class="sidebar-overlay" id="overlay"></div>
 
-  <!-- ============ MAIN ============ -->
   <main class="main">
     <div class="mobile-bar">
       <button id="menuBtn" aria-label="Abrir menú">☰</button>
       <div class="brand-name" style="font-size:.92rem;">Intervención Intercultural</div>
     </div>
 
-    <!-- ---------- RESUMEN ---------- -->
     <section class="view active" id="view-resumen">
       <div class="view-head">
         <span class="view-eyebrow">Propuesta académica · resumen</span>
@@ -467,7 +468,6 @@ td strong{color:var(--cordillera-text);}
       </div>
     </section>
 
-    <!-- ---------- 1. PROBLEMA ---------- -->
     <section class="view" id="view-problema">
       <div class="view-head">
         <span class="view-eyebrow">01 · Descripción del problema</span>
@@ -505,7 +505,6 @@ td strong{color:var(--cordillera-text);}
       </div>
     </section>
 
-    <!-- ---------- 2. ANALISIS ---------- -->
     <section class="view" id="view-analisis">
       <div class="view-head">
         <span class="view-eyebrow">02 · Análisis desde la Psicología de la Interculturalidad</span>
@@ -541,7 +540,6 @@ td strong{color:var(--cordillera-text);}
       </div>
     </section>
 
-    <!-- ---------- 3. OBJETIVOS ---------- -->
     <section class="view" id="view-objetivos">
       <div class="view-head">
         <span class="view-eyebrow">03 · Objetivo de la intervención</span>
@@ -560,7 +558,6 @@ td strong{color:var(--cordillera-text);}
       </div>
     </section>
 
-    <!-- ---------- 4. ACCIONES ---------- -->
     <section class="view" id="view-acciones">
       <div class="view-head">
         <span class="view-eyebrow">04 · Propuesta de intervención</span>
@@ -610,7 +607,6 @@ td strong{color:var(--cordillera-text);}
       </div>
     </section>
 
-    <!-- ---------- 5. TEORIA ---------- -->
     <section class="view" id="view-teoria">
       <div class="view-head">
         <span class="view-eyebrow">05 · Enfoque teórico de sustentación</span>
@@ -641,7 +637,6 @@ td strong{color:var(--cordillera-text);}
       </div>
     </section>
 
-    <!-- ---------- 6. ETICA ---------- -->
     <section class="view" id="view-etica">
       <div class="view-head">
         <span class="view-eyebrow">06 · Consideraciones éticas y culturales</span>
@@ -658,7 +653,6 @@ td strong{color:var(--cordillera-text);}
       </div>
     </section>
 
-    <!-- ---------- 7. CONCLUSION ---------- -->
     <section class="view" id="view-conclusion">
       <div class="view-head">
         <span class="view-eyebrow">07 · Conclusión</span>
@@ -670,7 +664,6 @@ td strong{color:var(--cordillera-text);}
       </div>
     </section>
 
-    <!-- ---------- 8. REFERENCIAS ---------- -->
     <section class="view" id="view-referencias">
       <div class="view-head">
         <span class="view-eyebrow">08 · Fuentes citadas</span>
