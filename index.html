@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Intervención Psicológica Intercultural · La Paz 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS - paleta inspirada en el altiplano al atardecer y el
+   tejido andino: tierra cocida (comunitario), gris cordillera
+   (institucional) y ocaso (el puente / diálogo entre ambos).
+============================================================ */
+:root{
+  --bg-base:#181310;
+  --bg-raised:#211a16;
+  --bg-raised-hi:#2a221c;
+  --line:rgba(243,234,217,.08);
+  --line-strong:rgba(243,234,217,.16);
+
+  --terracota:#c9803f;
+  --terracota-text:#e3a868;
+  --terracota-soft:rgba(201,128,63,.14);
+  --terracota-deep:#7a4424;
+
+  --cordillera:#5f93a0;
+  --cordillera-text:#8fc0cb;
+  --cordillera-soft:rgba(95,147,160,.14);
+  --cordillera-deep:#33545c;
+
+  --ocaso:#a8567f;
+  --ocaso-text:#d488ab;
+  --ocaso-soft:rgba(168,86,127,.14);
+  --ocaso-deep:#5c2e46;
+
+  --text-hi:#f3ead9;
+  --text-main:#c9bca9;
+  --text-muted:#8c8071;
+
+  --gradient-puente:linear-gradient(120deg,var(--terracota),var(--ocaso) 50%,var(--cordillera));
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'Hanken Grotesk','Segoe UI',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --radius:12px;
+  --radius-sm:8px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;}
+body{
+  background-color:var(--bg-base);
+  background-image:
+    radial-gradient(ellipse 900px 460px at 50% -8%, rgba(168,86,127,.12), transparent 62%),
+    repeating-linear-gradient(135deg, rgba(243,234,217,.025) 0px, rgba(243,234,217,.025) 1px, transparent 1px, transparent 11px);
+  color:var(--text-main);
+  font-family:var(--sans);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow:hidden;
+}
+h1,h2,h3,h4{color:var(--text-hi);font-family:var(--serif);font-weight:600;letter-spacing:-.01em;}
+em{color:var(--terracota-text);font-style:italic;}
+strong{color:var(--text-hi);font-weight:600;}
+button{font-family:var(--sans);}
+*:focus-visible{outline:2px solid var(--cordillera-text);outline-offset:2px;}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;}}
+
+/* ============================================================
+   ICONOS - set de línea unificado (stroke, sin relleno)
+============================================================ */
+svg.ic{width:18px;height:18px;flex-shrink:0;}
+svg.ic use,
+.icon-defs path,.icon-defs circle{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+
+/* ============================================================
+   APP SHELL
+============================================================ */
+.app{display:flex;height:100vh;width:100vw;position:relative;}
+
+/* ---------- SIDEBAR ---------- */
+.sidebar{
+  width:272px;flex-shrink:0;background:var(--bg-raised);
+  border-right:1px solid var(--line);display:flex;flex-direction:column;
+  padding:1.6rem 1rem 1rem;position:relative;z-index:610;
+}
+.sidebar::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient-puente);}
+.brand{padding:0 .6rem 1.3rem;margin-bottom:.6rem;border-bottom:1px solid var(--line);}
+.brand-name{font-family:var(--serif);font-size:1.15rem;color:var(--text-hi);line-height:1.3;}
+.brand-sub{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;color:var(--text-muted);text-transform:uppercase;margin-top:.45rem;}
+
+.nav-scroll{flex:1;overflow-y:auto;padding-right:2px;}
+.nav-scroll::-webkit-scrollbar{width:4px;}
+.nav-scroll::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:4px;}
+
+.nav-group{margin-top:1.15rem;}
+.nav-group-label{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);padding:0 .8rem;margin-bottom:.4rem;display:block;}
+.nav-item{
+  display:flex;align-items:center;gap:.7rem;width:100%;padding:.6rem .8rem;border-radius:9px;
+  background:transparent;border:none;color:var(--text-muted);font-size:.84rem;font-weight:500;
+  text-align:left;cursor:pointer;transition:background .2s,color .2s;margin-bottom:.1rem;position:relative;
+}
+.nav-item svg.ic{opacity:.75;}
+.nav-item:hover{background:rgba(243,234,217,.04);color:var(--text-hi);}
+.nav-item.active{background:var(--bg-raised-hi);color:var(--text-hi);}
+.nav-item.active svg.ic{opacity:1;color:var(--ocaso-text);}
+.nav-item.active::before{content:'';position:absolute;left:0;top:18%;bottom:18%;width:3px;border-radius:3px;background:var(--gradient-puente);}
+.nav-item .num{margin-left:auto;font-family:var(--mono);font-size:.62rem;color:var(--text-muted);}
+.nav-item.active .num{color:var(--ocaso-text);}
+
+.sidebar-foot{border-top:1px solid var(--line);padding-top:.9rem;font-size:.72rem;color:var(--text-muted);line-height:1.55;}
+.sidebar-foot strong{color:var(--text-main);font-size:.76rem;}
+
+.sidebar-overlay{position:fixed;inset:0;background:rgba(8,6,5,.6);opacity:0;pointer-events:none;transition:opacity .25s;z-index:600;}
+.sidebar-overlay.show{opacity:1;pointer-events:auto;}
+
+/* ---------- MAIN ---------- */
+.main{flex:1;overflow-y:auto;position:relative;}
+.main::-webkit-scrollbar{width:6px;}
+.main::-webkit-scrollbar-thumb{background:var(--line-strong);border-radius:4px;}
+
+.view{display:none;padding:2.7rem 3.2rem 4.5rem;max-width:1140px;animation:viewIn .4s ease;}
+.view.active{display:block;}
+@keyframes viewIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+
+.view-head{margin-bottom:2.2rem;}
+.view-eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ocaso-text);margin-bottom:.7rem;display:block;}
+.view-title{font-size:2.1rem;margin-bottom:.6rem;line-height:1.18;max-width:780px;}
+.view-desc{color:var(--text-muted);font-size:.97rem;max-width:680px;}
+
+/* ============================================================
+   COMPONENTES
+============================================================ */
+.card{background:var(--bg-raised);border:1px solid var(--line);border-radius:var(--radius);padding:1.7rem;transition:border-color .25s;}
+.card:hover{border-color:var(--line-strong);}
+
+/* --- portada / cover --- */
+.cover-photo{position:relative;width:100%;aspect-ratio:16/6;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);margin-bottom:.8rem;
+  background:var(--bg-raised) url('portada.jpg') center/cover no-repeat;}
+.cover-photo-hint{font-size:.78rem;color:var(--text-muted);margin:0 0 1.4rem;line-height:1.6;}
+.cover-photo-hint code{font-family:var(--mono);font-size:.74rem;color:var(--cordillera-text);background:var(--cordillera-soft);padding:.1rem .4rem;border-radius:5px;}
+
+.cover-card{padding:2rem 2.2rem;margin-bottom:1.2rem;}
+.cover-card h2{font-size:1.05rem;font-family:var(--mono);font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:1rem;}
+.student-list{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);}
+.student-list li{display:flex;justify-content:space-between;align-items:baseline;gap:.8rem;padding:.65rem 0;border-bottom:1px solid var(--line);font-size:.94rem;color:var(--text-hi);font-family:var(--serif);}
+.student-list li:nth-child(odd){padding-right:1.2rem;}
+.student-list li:nth-child(even){padding-left:1.2rem;}
+.student-list .role{font-family:var(--mono);font-size:.6rem;letter-spacing:.07em;color:var(--text-muted);text-transform:uppercase;flex-shrink:0;}
+
+/* --- bridge signature diagram --- */
+.bridge-wrap{margin-bottom:1.4rem;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg-raised);padding:1.4rem 1.6rem .6rem;}
+.bridge-art{width:100%;height:auto;display:block;max-height:230px;}
+.bridge-art text{font-family:var(--mono);font-size:11px;letter-spacing:.06em;}
+.bridge-cap{text-align:center;font-family:var(--mono);font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);padding:.7rem 0 .5rem;}
+.thread-a{stroke:var(--terracota);} .thread-b{stroke:var(--ocaso);} .thread-c{stroke:var(--cordillera);}
+.bank-a{fill:var(--terracota);} .bank-b{fill:var(--cordillera);}
+.node-a{fill:var(--terracota);} .node-b{fill:var(--ocaso);} .node-c{fill:var(--cordillera);}
+.label-a{fill:var(--terracota-text);} .label-b{fill:var(--cordillera-text);} .label-c{fill:var(--ocaso-text);}
+
+/* --- meta card (icono + texto) --- */
+.meta-card{display:flex;align-items:flex-start;gap:1rem;padding:1.1rem 1.4rem;margin-bottom:1.1rem;}
+.meta-card .ic-circle{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.meta-card .ic-circle.bg-a{background:var(--terracota-soft);color:var(--terracota-text);}
+.meta-card .ic-circle.bg-b{background:var(--cordillera-soft);color:var(--cordillera-text);}
+.meta-card .ic-circle.bg-c{background:var(--ocaso-soft);color:var(--ocaso-text);}
+.meta-card .txt strong{display:block;font-size:.92rem;margin-bottom:.2rem;}
+.meta-card .txt span{font-size:.85rem;color:var(--text-muted);}
+
+/* --- quote card --- */
+.quote-card{padding:1.4rem 1.6rem;margin-bottom:1.2rem;position:relative;}
+.quote-card .qlabel{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;color:var(--text-muted);text-transform:uppercase;margin-bottom:.3rem;display:block;}
+.quote-card .qlabel.alert{color:var(--terracota-text);}
+.quote-card p{font-family:var(--serif);font-style:italic;font-size:1rem;color:var(--text-hi);margin:0;}
+.quote-card .src{display:block;margin-top:.6rem;font-style:normal;font-family:var(--mono);font-size:.66rem;color:var(--text-muted);}
+
+/* --- stats --- */
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-bottom:1.3rem;}
+.stat-card{background:var(--bg-raised);border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem;position:relative;overflow:hidden;}
+.stat-card::after{content:'';position:absolute;left:0;right:0;bottom:0;height:3px;}
+.stat-card.c-comunitario::after{background:var(--terracota);}
+.stat-card.c-institucional::after{background:var(--cordillera);}
+.stat-card.c-dialogo::after{background:var(--ocaso);}
+.stat-card .stat-ic{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:.9rem;}
+.stat-card.c-comunitario .stat-ic{background:var(--terracota-soft);color:var(--terracota-text);}
+.stat-card.c-institucional .stat-ic{background:var(--cordillera-soft);color:var(--cordillera-text);}
+.stat-card.c-dialogo .stat-ic{background:var(--ocaso-soft);color:var(--ocaso-text);}
+.stat-card .num{font-family:var(--serif);font-size:2.05rem;color:var(--text-hi);line-height:1;margin-bottom:.35rem;}
+.stat-card .lbl{font-family:var(--sans);font-size:.78rem;color:var(--text-muted);}
+
+/* --- timeline --- */
+.timeline-card{padding:1.9rem 2rem 1.6rem;}
+.timeline-label-row{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.64rem;color:var(--text-muted);margin-bottom:1.4rem;text-transform:uppercase;letter-spacing:.04em;}
+.timeline-track{position:relative;height:2px;background:var(--line-strong);margin:0 4px;}
+.timeline-track .seg{position:absolute;top:0;height:2px;}
+.timeline-markers{display:flex;justify-content:space-between;margin-top:1.5rem;gap:1rem;}
+.timeline-marker{flex:1;position:relative;padding-top:1.1rem;}
+.timeline-marker::before{content:'';position:absolute;top:0;left:0;width:9px;height:9px;border-radius:50%;border:2px solid var(--bg-raised);}
+.timeline-marker.a::before{background:var(--terracota);}
+.timeline-marker.b::before{background:var(--ocaso);}
+.timeline-marker.c::before{background:var(--cordillera);}
+.timeline-marker .day{font-family:var(--mono);font-size:.66rem;color:var(--text-hi);margin-bottom:.4rem;}
+.timeline-marker .desc{font-size:.81rem;color:var(--text-muted);}
+
+/* --- analisis dual --- */
+.analisis-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:1.6rem;align-items:center;}
+.col-analisis{padding:1.8rem;height:100%;border-top:3px solid transparent;}
+.col-analisis.comunitario{border-top-color:var(--terracota);}
+.col-analisis.institucional{border-top-color:var(--cordillera);}
+.col-analisis h3{font-size:1.02rem;margin-bottom:1.1rem;display:flex;align-items:center;gap:.55rem;}
+.col-analisis svg.ic{width:16px;height:16px;}
+.col-analisis.comunitario svg.ic{color:var(--terracota);}
+.col-analisis.institucional svg.ic{color:var(--cordillera);}
+.col-analisis ul{list-style:none;}
+.col-analisis li{padding-left:1rem;border-left:2px solid var(--line);margin-bottom:1rem;font-size:.86rem;color:var(--text-muted);}
+.col-analisis.comunitario li{border-left-color:var(--terracota-soft);}
+.col-analisis.institucional li{border-left-color:var(--cordillera-soft);}
+.col-analisis li strong{display:block;color:var(--text-hi);margin-bottom:.15rem;font-size:.88rem;}
+.nexo-circle{
+  text-align:center;font-family:var(--serif);font-weight:600;font-size:.95rem;
+  background:var(--gradient-puente);padding:1.4rem 1.2rem;border-radius:50%;width:148px;height:148px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.55rem;color:var(--bg-base);
+  box-shadow:0 18px 36px -10px rgba(168,86,127,.4);line-height:1.3;
+}
+.nexo-circle svg.ic{width:20px;height:20px;color:var(--bg-base);opacity:.85;}
+
+.q-list{display:flex;flex-direction:column;gap:.8rem;margin-top:1.4rem;}
+.q-row{display:flex;gap:1rem;padding:1.1rem 1.3rem;align-items:flex-start;}
+.q-row .qn{font-family:var(--mono);color:var(--ocaso-text);font-size:.8rem;flex-shrink:0;width:22px;padding-top:.15rem;}
+.q-row p{margin:0;font-size:.89rem;}
+
+/* --- objetivos --- */
+.obj-general{margin-bottom:1.6rem;border-left:3px solid var(--ocaso);padding:1.8rem 2rem;}
+.obj-general .tag{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.1em;color:var(--ocaso-text);margin-bottom:.7rem;display:block;}
+.obj-general p{font-size:1.05rem;color:var(--text-main);margin:0;font-family:var(--serif);}
+.obj-specifics{display:flex;flex-direction:column;gap:1rem;}
+.obj-item{padding:1.3rem 1.5rem;display:flex;gap:1rem;align-items:flex-start;}
+.obj-item .ord{font-family:var(--mono);font-size:.95rem;color:var(--cordillera-text);flex-shrink:0;}
+.obj-item p{margin:0;font-size:.9rem;}
+
+/* --- acciones / tabs como dossier --- */
+.tabs-container{border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:var(--bg-raised);}
+.tab-buttons{display:flex;background:rgba(0,0,0,.18);overflow-x:auto;}
+.tab-btn{flex:1;display:flex;align-items:center;gap:.7rem;padding:1.1rem 1.1rem;background:transparent;border:none;color:var(--text-muted);font-size:.86rem;font-weight:600;cursor:pointer;transition:.25s;border-bottom:2px solid transparent;min-width:200px;text-align:left;}
+.tab-btn .roman{font-family:var(--serif);font-style:italic;color:var(--ocaso-text);font-size:1rem;flex-shrink:0;}
+.tab-btn:hover{background:rgba(243,234,217,.04);color:var(--text-hi);}
+.tab-btn.active{color:var(--text-hi);border-bottom-color:var(--ocaso);background:rgba(243,234,217,.03);}
+.tab-content{display:none;padding:2.2rem 2.4rem;animation:fadeInTab .35s;}
+.tab-content.active{display:block;}
+@keyframes fadeInTab{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+.tab-content h3{color:var(--text-hi);font-size:1.3rem;margin-bottom:1.1rem;}
+.tab-meta-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem;margin-bottom:1.5rem;padding-bottom:1.3rem;border-bottom:1px solid var(--line);}
+.tab-meta-grid .item .label{display:block;font-family:var(--mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);margin-bottom:.35rem;}
+.tab-meta-grid .item p{margin:0;font-size:.86rem;}
+.tab-content .result-box{background:var(--ocaso-soft);border:1px solid rgba(168,86,127,.28);border-radius:10px;padding:1.1rem 1.3rem;margin-top:1.2rem;}
+.tab-content .result-box .label{font-family:var(--mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ocaso-text);margin-bottom:.4rem;display:block;}
+.tab-content .result-box p{margin:0;font-size:.88rem;}
+.tab-content p{font-size:.9rem;}
+.tab-content ul{margin-left:1.4rem;font-size:.88rem;color:var(--text-muted);margin-top:.6rem;}
+.tab-content ul li{margin-bottom:.4rem;}
+
+/* --- teoria --- */
+table{width:100%;border-collapse:collapse;margin:1.6rem 0;background:var(--bg-raised);border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);}
+th,td{padding:.95rem 1.1rem;text-align:left;border-bottom:1px solid var(--line);font-size:.85rem;}
+th{background:rgba(168,86,127,.1);color:var(--text-hi);font-family:var(--mono);font-size:.64rem;text-transform:uppercase;letter-spacing:.05em;font-weight:500;}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:rgba(243,234,217,.025);}
+td strong{color:var(--cordillera-text);}
+.theory-block{background:var(--cordillera-soft);border:1px solid rgba(95,147,160,.28);padding:1.8rem;margin-top:1.6rem;border-radius:var(--radius);}
+.theory-block h3{color:var(--cordillera-text);margin-bottom:.9rem;font-size:1.05rem;}
+.theory-block p{font-size:.88rem;}
+.theory-block ul{margin-top:.9rem;list-style:none;}
+.theory-block li{padding:.8rem 0 .8rem 1.5rem;border-bottom:1px solid rgba(95,147,160,.18);position:relative;font-size:.87rem;}
+.theory-block li:last-child{border-bottom:none;}
+.theory-block li::before{content:'';position:absolute;left:0;top:1.15rem;width:7px;height:7px;border-radius:50%;background:var(--cordillera);}
+.cite{font-size:.88rem;color:var(--text-muted);margin-bottom:1.2rem;}
+.cite strong{color:var(--text-hi);}
+
+/* --- etica --- */
+.etica-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem;}
+.etica-item{display:flex;align-items:flex-start;gap:1rem;padding:1.5rem;transition:border-color .25s;}
+.etica-item:hover{border-color:var(--ocaso);}
+.etica-ic{flex-shrink:0;width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;}
+.etica-ic.bg-a{background:var(--terracota-soft);color:var(--terracota-text);}
+.etica-ic.bg-b{background:var(--cordillera-soft);color:var(--cordillera-text);}
+.etica-ic.bg-c{background:var(--ocaso-soft);color:var(--ocaso-text);}
+.etica-item strong{display:block;margin-bottom:.3rem;font-size:.9rem;}
+.etica-item p{font-size:.84rem;color:var(--text-muted);margin:0;}
+
+/* --- conclusion --- */
+.conclusion-quote{font-family:var(--serif);font-size:1.35rem;font-weight:500;line-height:1.5;color:var(--text-hi);margin:1.9rem auto 0;font-style:italic;padding:0 .5rem;text-align:center;max-width:640px;}
+
+/* --- referencias --- */
+.ref-list{display:flex;flex-direction:column;gap:.8rem;}
+.ref-item{padding:1.1rem 1.3rem;font-size:.85rem;}
+.ref-item .ref-name{display:block;color:var(--text-hi);font-weight:600;margin-bottom:.3rem;font-size:.88rem;}
+.ref-item a{color:var(--cordillera-text);text-decoration:none;font-family:var(--mono);font-size:.74rem;word-break:break-all;}
+.ref-item a:hover{text-decoration:underline;}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width:980px){
+  .stat-grid{grid-template-columns:repeat(3,1fr);}
+  .analisis-grid{grid-template-columns:1fr;}
+  .nexo-circle{width:100%;height:auto;border-radius:var(--radius);padding:1.4rem;flex-direction:row;aspect-ratio:auto;}
+  .tab-meta-grid{grid-template-columns:1fr;}
+  .timeline-markers{flex-wrap:wrap;}
+  .timeline-marker{flex:1 1 45%;}
+  .student-list{grid-template-columns:1fr;}
+  .student-list li:nth-child(odd),.student-list li:nth-child(even){padding:.65rem 0;}
+}
+@media (max-width:760px){
+  .sidebar{position:fixed;left:0;top:0;bottom:0;transform:translateX(-100%);transition:transform .25s;width:248px;}
+  .sidebar.open{transform:translateX(0);}
+  .mobile-bar{display:flex;}
+  .view{padding:1.4rem 1.2rem 3rem;}
+  .stat-grid{grid-template-columns:1fr;}
+  .tab-btn{min-width:160px;font-size:.8rem;padding:1rem .9rem;}
+  .view-title{font-size:1.6rem;}
+  .bridge-art{max-height:170px;}
+  .cover-photo{aspect-ratio:16/9;}
+}
+.mobile-bar{display:none;align-items:center;gap:.8rem;padding:1rem 1.2rem;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg-base);z-index:50;}
+.mobile-bar button{background:var(--bg-raised);border:1px solid var(--line-strong);color:var(--text-hi);width:36px;height:36px;border-radius:9px;cursor:pointer;}
+</style>
+</head>
+<body>
+
+<!-- ============ ICON SPRITE (oculto) ============ -->
+<svg class="icon-defs" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+<defs>
+<symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3h7l4 4v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M14 3v4h4"/><path d="M9 12h6M9 16h6"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17.3" cy="9" r="2.3"/><path d="M21 20c0-2.5-1.7-4.6-4-5.4"/></symbol>
+<symbol id="i-trend" viewBox="0 0 24 24"><path d="M3 6l7 7 4-4 7 7"/><path d="M21 11.5V17h-5.5"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5Z"/></symbol>
+<symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 4v16"/><path d="M5 8h14"/><path d="M5 8 3 14a3 3 0 0 0 4 0Z"/><path d="M19 8l-2 6a3 3 0 0 0 4 0Z"/><path d="M8 20h8"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2 20h20Z"/><path d="M12 10v4"/><circle cx="12" cy="16.6" r=".25" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 7.8-8 9-4.5-1.2-8-4-8-9V6Z"/><path d="M9 12l2 2 4-4"/></symbol>
+<symbol id="i-checkdoc" viewBox="0 0 24 24"><path d="M7 3h7l4 4v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M14 3v4h4"/><path d="M9 14.5l1.8 1.8L15 12"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01"/><path d="M11 12h1v5"/></symbol>
+<symbol id="i-bridge" viewBox="0 0 24 24"><path d="M2 16c2-3 5-5 10-5s8 2 10 5"/><path d="M5 16v4M9 13.5V20M15 13.5V20M19 16v4"/><path d="M2 20h20"/></symbol>
+<symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15 9l-2 6-6 2 2-6 6-2Z"/></symbol>
+<symbol id="i-megaphone" viewBox="0 0 24 24"><path d="M3 10v4h3l7 4V6L6 10H3Z"/><path d="M16 9a4 4 0 0 1 0 6"/></symbol>
+<symbol id="i-leaf" viewBox="0 0 24 24"><path d="M21 3C10 3 3 10 3 21c11 0 18-7 18-18Z"/><path d="M7.5 16.5 17 7"/></symbol>
+<symbol id="i-flow" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="18" r="2.4"/><path d="M8 7.5 16 16.5"/><circle cx="18" cy="6" r="2.4"/><circle cx="6" cy="18" r="2.4"/><path d="M16 7.5 8 16.5"/></symbol>
+<symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16.5 15.5 11 9 17.5"/></symbol>
+</defs>
+</svg>
+
+<div class="app">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-name">Intervención<br>Intercultural</div>
+      <div class="brand-sub">UPB Franz Tamayo · La Paz 2026</div>
+    </div>
+
+    <nav class="nav-scroll">
+      <div class="nav-group">
+        <span class="nav-group-label">Propuesta</span>
+        <button class="nav-item active" data-view="resumen"><svg class="ic"><use href="#i-leaf"/></svg>Resumen<span class="num">00</span></button>
+        <button class="nav-item" data-view="problema"><svg class="ic"><use href="#i-alert"/></svg>El problema<span class="num">01</span></button>
+        <button class="nav-item" data-view="analisis"><svg class="ic"><use href="#i-flow"/></svg>Análisis intercultural<span class="num">02</span></button>
+        <button class="nav-item" data-view="objetivos"><svg class="ic"><use href="#i-compass"/></svg>Objetivos<span class="num">03</span></button>
+        <button class="nav-item" data-view="acciones"><svg class="ic"><use href="#i-bridge"/></svg>Propuesta de acción<span class="num">04</span></button>
+        <button class="nav-item" data-view="teoria"><svg class="ic"><use href="#i-doc"/></svg>Base teórica<span class="num">05</span></button>
+        <button class="nav-item" data-view="etica"><svg class="ic"><use href="#i-scale"/></svg>Consideraciones éticas<span class="num">06</span></button>
+        <button class="nav-item" data-view="conclusion"><svg class="ic"><use href="#i-checkdoc"/></svg>Conclusión<span class="num">07</span></button>
+        <button class="nav-item" data-view="referencias"><svg class="ic"><use href="#i-info"/></svg>Referencias<span class="num">08</span></button>
+      </div>
+
+    </nav>
+
+    <div class="sidebar-foot">
+      <strong>Universidad Privada Franz Tamayo</strong><br>
+      Fac. de Ciencias Jurídicas y Sociales<br>
+      Carrera de Psicología<br>
+      El Alto, junio de 2026
+    </div>
+  </aside>
+
+  <div class="sidebar-overlay" id="overlay"></div>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+    <div class="mobile-bar">
+      <button id="menuBtn" aria-label="Abrir menú">☰</button>
+      <div class="brand-name" style="font-size:.92rem;">Intervención Intercultural</div>
+    </div>
+
+    <!-- ---------- RESUMEN ---------- -->
+    <section class="view active" id="view-resumen">
+      <div class="view-head">
+        <span class="view-eyebrow">Propuesta académica · resumen</span>
+        <h1 class="view-title">Intervención Psicológica Intercultural para la Reducción del Estrés Social, Despolarización y Reconstrucción del Diálogo Comunitario en La Paz</h1>
+        <p class="view-desc">Asignatura: Psicología de la Interculturalidad. Docente: Lic. Vino Duran Cristian Daniel.</p>
+      </div>
+
+      <div class="cover-photo" id="coverPhoto"></div>
+      <div class="bridge-wrap">
+        <svg class="bridge-art" viewBox="0 0 1000 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagrama de un puente que conecta la racionalidad comunitaria con la racionalidad institucional a través del diálogo intercultural">
+          <defs>
+            <pattern id="weave" width="26" height="12" patternUnits="userSpaceOnUse">
+              <rect width="13" height="13" transform="rotate(45 6.5 6.5)" class="bank-a" opacity=".55"/>
+              <rect x="13" width="13" height="13" transform="rotate(45 19.5 6.5)" class="bank-b" opacity=".55"/>
+            </pattern>
+          </defs>
+          <path d="M0 210 Q130 180 270 198 L270 280 L0 280 Z" class="bank-a" opacity=".15"/>
+          <path d="M1000 210 Q870 180 730 198 L730 280 L1000 280 Z" class="bank-b" opacity=".15"/>
+          <g fill="none" stroke-linecap="round">
+            <path d="M160 205 C 330 105, 670 105, 840 205" class="thread-a" stroke-width="2.2" opacity=".85"/>
+            <path d="M160 222 C 340 138, 660 138, 840 222" class="thread-b" stroke-width="2.2" opacity=".9"/>
+            <path d="M160 239 C 350 172, 650 172, 840 239" class="thread-c" stroke-width="2.2" opacity=".85"/>
+          </g>
+          <circle cx="160" cy="222" r="6" class="node-a"/>
+          <circle cx="500" cy="133" r="7" class="node-b"/>
+          <circle cx="840" cy="222" r="6" class="node-c"/>
+          <rect x="0" y="248" width="1000" height="9" fill="url(#weave)"/>
+          <text x="160" y="180" text-anchor="middle" class="label-a">RACIONALIDAD COMUNITARIA</text>
+          <text x="840" y="180" text-anchor="middle" class="label-b">RACIONALIDAD INSTITUCIONAL</text>
+          <text x="500" y="105" text-anchor="middle" class="label-c">DIÁLOGO INTERCULTURAL</text>
+        </svg>
+        <div class="bridge-cap">El puente posible entre dos racionalidades del mismo Estado plurinacional</div>
+      </div>
+
+      <div class="card cover-card">
+        <h2>Estudiantes</h2>
+        <ul class="student-list">
+          <li><span>Mamani Cerdano Felicidad Nehmat</span><span class="role">Autora</span></li>
+          <li><span>Mamani Valda Lizeth</span><span class="role">Autora</span></li>
+          <li><span>Ticona Condori Jhoel Franco</span><span class="role">Autor</span></li>
+          <li><span>Maldonado Roque Darwin</span><span class="role">Autor</span></li>
+        </ul>
+      </div>
+
+      <div class="meta-card card">
+        <div class="ic-circle bg-c"><svg class="ic"><use href="#i-doc"/></svg></div>
+        <div class="txt"><strong>Institución y fecha</strong><span>Universidad Privada Franz Tamayo · Facultad de Ciencias Jurídicas y Sociales · Carrera de Psicología · El Alto, 25/06/26</span></div>
+      </div>
+
+      <div class="quote-card card">
+        <span class="qlabel">Idea central de la conclusión</span>
+        <p>Transformar el choque cultural en una oportunidad histórica para la convivencia con empatía mutua entre los sectores sociales y el gobierno.</p>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card c-comunitario"><div class="stat-ic"><svg class="ic"><use href="#i-alert"/></svg></div><div class="num">50</div><div class="lbl">Días de bloqueo continuo</div></div>
+        <div class="stat-card c-dialogo"><div class="stat-ic"><svg class="ic"><use href="#i-trend"/></svg></div><div class="num">$us 3M</div><div class="lbl">Pérdidas estimadas por día (nivel nacional)</div></div>
+        <div class="stat-card c-institucional"><div class="stat-ic"><svg class="ic"><use href="#i-home"/></svg></div><div class="num">70%</div><div class="lbl">De industrias de La Paz paralizadas (CNI)</div></div>
+      </div>
+
+      <div class="card timeline-card">
+        <div class="timeline-label-row">
+          <span>6 may. 2026 · inicio</span>
+          <span>50 días</span>
+          <span>23 jun. 2026 · "bloqueo derrotado"</span>
+        </div>
+        <div class="timeline-track"></div>
+        <div class="timeline-markers">
+          <div class="timeline-marker a"><div class="day">6 may. 2026</div><div class="desc">COB y Federación de Campesinos de La Paz cierran carreteras exigiendo la renuncia de Rodrigo Paz</div></div>
+          <div class="timeline-marker b"><div class="day">3 semanas</div><div class="desc">El Colegio de Psicólogos de Bolivia advierte estrés crónico y ansiedad colectiva (Correo del Sur)</div></div>
+          <div class="timeline-marker c"><div class="day">23 jun. 2026</div><div class="desc">Rodrigo Paz declara el bloqueo "derrotado" y pide que Bolivia "se ordene" (EFE)</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- 1. PROBLEMA ---------- -->
+    <section class="view" id="view-problema">
+      <div class="view-head">
+        <span class="view-eyebrow">01 · Descripción del problema</span>
+        <h1 class="view-title">Cincuenta días de paralización estructural</h1>
+        <p class="view-desc">El 6 de mayo de 2026, La Paz y gran parte del territorio boliviano comenzaron a experimentar una paralización estructural cuando la Federación de Campesinos de La Paz y la Central Obrera Boliviana (COB) lideraron el cierre de carreteras y vías de acceso, sumándose luego sectores leales al expresidente Evo Morales, para exigir la renuncia del presidente Rodrigo Paz, durante aproximadamente 50 días (EFE, 2026; Infobae, 2026).</p>
+      </div>
+
+      <div class="card meta-card">
+        <div class="ic-circle bg-b"><svg class="ic"><use href="#i-users"/></svg></div>
+        <div class="txt"><strong>Actores sociales involucrados</strong><span>Por un lado, organizaciones sociales y sindicales que recurren a la toma de calles y bloqueos como mecanismo de exigencia frente a las élites de poder; por otro, ciudadanos y el sector urbano que ven afectados sus derechos individuales, como la libre transitabilidad y el acceso a servicios básicos de salud.</span></div>
+      </div>
+
+      <div class="card meta-card">
+        <div class="ic-circle bg-a"><svg class="ic"><use href="#i-trend"/></svg></div>
+        <div class="txt"><strong>Consecuencias materiales</strong><span>Desabastecimiento crónico de alimentos, combustible y oxígeno medicinal en varias ciudades. Las pérdidas económicas se estiman en más de $us 3 millones por día a nivel nacional, mientras la Cámara Nacional de Industrias (CNI) reportó que el 70% de las industrias de La Paz se vio imposibilitada de sostener su actividad normal (La Razón, 2026).</span></div>
+      </div>
+
+      <h3 style="font-size:1.05rem;margin:1.8rem 0 1rem;">Efectos psicosociales documentados</h3>
+
+      <div class="quote-card card">
+        <span class="qlabel alert">Correo del Sur, 2026</span>
+        <p>Los recientes episodios vandálicos ocurridos en la ciudad de La Paz profundizaron un estado de alerta permanente en la población, que ya arrastraba afectaciones psicológicas por tres semanas de bloqueos y desabastecimiento de alimentos y combustible.</p>
+        <span class="src">Verónica Alfaro, presidenta del Colegio de Psicólogos de Bolivia (Correo del Sur, 2026, párr. 2)</span>
+      </div>
+
+      <div class="quote-card card">
+        <span class="qlabel alert">ABI, 2026</span>
+        <p>La población enfrenta un aumento significativo de casos de ansiedad, depresión, estrés agudo, trastornos del sueño y violencia intrafamiliar, entre otros trastornos que afectan la salud mental sobre todo de niños, adolescentes y adultos mayores.</p>
+        <span class="src">Sociedad Boliviana de Psiquiatría, Filial La Paz (ABI, 2026)</span>
+      </div>
+
+      <div class="card meta-card" style="margin-top:1.2rem;">
+        <div class="ic-circle bg-c"><svg class="ic"><use href="#i-home"/></svg></div>
+        <div class="txt"><strong>Impacto en la vida cotidiana</strong><span>La incertidumbre y la inseguridad generaron ansiedad, angustia y pérdida de esperanza, especialmente en familias con dificultades para acceder a productos básicos. El área académica también se vio interrumpida: todos los colegios pasaron a clases virtuales.</span></div>
+      </div>
+    </section>
+
+    <!-- ---------- 2. ANALISIS ---------- -->
+    <section class="view" id="view-analisis">
+      <div class="view-head">
+        <span class="view-eyebrow">02 · Análisis desde la Psicología de la Interculturalidad</span>
+        <h1 class="view-title">Dos racionalidades, un mismo Estado plurinacional</h1>
+        <p class="view-desc">El choque cultural resulta evidente incluso para observadores externos: ¿cómo se concibe la justicia social en un Estado plurinacional? ¿Cómo se usa el espacio público? ¿Quién tiene legitimidad para definir la política?</p>
+      </div>
+
+      <div class="analisis-grid">
+        <div class="card col-analisis comunitario">
+          <h3><svg class="ic"><use href="#i-users"/></svg>Racionalidad comunitaria y sindical</h3>
+          <ul>
+            <li><strong>Memoria colectiva</strong>La toma de las calles y el bloqueo son, para este sector, el único mecanismo eficaz para hacerse escuchar frente a las élites de poder.</li>
+            <li><strong>Derecho colectivo</strong>El derecho a la protesta social como organización se siente intervenido cuando se criminaliza el bloqueo.</li>
+            <li><strong>Cohesión grupal</strong>La movilización se sostiene mediante normas internas, multas y sanciones sociales que fuerzan la participación de las bases.</li>
+          </ul>
+        </div>
+        <div class="nexo-circle"><svg class="ic"><use href="#i-bridge"/></svg>Dos formas de justicia social que chocan dentro del mismo Estado</div>
+        <div class="card col-analisis institucional">
+          <h3><svg class="ic"><use href="#i-scale"/></svg>Racionalidad institucional urbana</h3>
+          <ul>
+            <li><strong>Orden y estabilidad</strong>Prioriza el orden, el libre tránsito y la estabilidad económica como condición de la vida cotidiana.</li>
+            <li><strong>Derechos individuales</strong>La libre transitabilidad y la salud pública de cada ciudadano se sienten profundamente afectadas por la polarización.</li>
+            <li><strong>Deshumanización del manifestante</strong>El manifestante se reduce al estereotipo del sector "intransigente", eliminando la empatía hacia su demanda.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.02rem;margin:2rem 0 0;">Mecanismos psicosociales observados</h3>
+      <div class="q-list">
+        <div class="card q-row"><span class="qn">01</span><p><strong>Sesgo intergrupal y estereotipación.</strong> Los actos de algunas personas que destruyen espacios públicos se generalizan hacia todo un sector social, estereotipando a comunidades y pueblos enteros.</p></div>
+        <div class="card q-row"><span class="qn">02</span><p><strong>Deshumanización mutua.</strong> Al intentar reducir estos estereotipos, los manifestantes terminan vistos como apáticos e intransigentes; al mismo tiempo, la discriminación desde sectores de élite perpetúa la tensión identitaria.</p></div>
+        <div class="card q-row"><span class="qn">03</span><p><strong>Derechos en tensión.</strong> El derecho colectivo a la protesta social y los derechos individuales a la libre transitabilidad y la salud pública se ven mutuamente vulnerados, profundizando la polarización.</p></div>
+      </div>
+    </section>
+
+    <!-- ---------- 3. OBJETIVOS ---------- -->
+    <section class="view" id="view-objetivos">
+      <div class="view-head">
+        <span class="view-eyebrow">03 · Objetivo de la intervención</span>
+        <h1 class="view-title">Objetivos de la intervención</h1>
+      </div>
+
+      <div class="card obj-general">
+        <span class="tag">Objetivo general</span>
+        <p>Promover la reducción de tensiones psicosociales y la afectación de la salud mental comunitaria a través del diálogo intercultural en la población afectada de la ciudad de La Paz.</p>
+      </div>
+
+      <div class="obj-specifics">
+        <div class="card obj-item"><span class="ord">01</span><p>Facilitar espacios comunitarios de contención emocional a familias en situación vulnerable que han elevado sus niveles de estrés y ansiedad.</p></div>
+        <div class="card obj-item"><span class="ord">02</span><p>Fomentar el reconocimiento de la empatía y desarrollar metodologías colaborativas de resolución de conflictos y educación intercultural para líderes sociales y vecinos del centro paceño.</p></div>
+        <div class="card obj-item"><span class="ord">03</span><p>Mitigar el clima de conflicto mediático y reducir la hostilidad digital mediante campañas de comunicación.</p></div>
+      </div>
+    </section>
+
+    <!-- ---------- 4. ACCIONES ---------- -->
+    <section class="view" id="view-acciones">
+      <div class="view-head">
+        <span class="view-eyebrow">04 · Propuesta de intervención</span>
+        <h1 class="view-title">Tres estrategias de acción</h1>
+      </div>
+
+      <div class="tabs-container">
+        <div class="tab-buttons">
+          <button class="tab-btn active" onclick="openTab(event,'accion1')"><span class="roman">I.</span>Círculos de Cuidado y Sanación</button>
+          <button class="tab-btn" onclick="openTab(event,'accion2')"><span class="roman">II.</span>Laboratorios de Despolarización</button>
+          <button class="tab-btn" onclick="openTab(event,'accion3')"><span class="roman">III.</span>Campaña Comunicacional</button>
+        </div>
+
+        <div id="accion1" class="tab-content active">
+          <h3>Círculos de Cuidado Comunitario y Sanación Colectiva</h3>
+          <div class="tab-meta-grid">
+            <div class="item"><span class="label">Población objetivo</span><p>Familias vulnerables, comerciantes minoristas de escasos recursos y madres jefas de hogar del municipio de La Paz y zonas periféricas golpeadas por el desabastecimiento.</p></div>
+            <div class="item"><span class="label">Enfoque intercultural aplicado</span><p>Psicología Cultural y Comunitaria, adaptada al bilingüismo Aymara-Castellano, respetando prácticas locales de apoyo mutuo como el <em>Ayni</em>.</p></div>
+          </div>
+          <p><strong>Descripción:</strong> implementación de grupos de contención psicoterapéutica y primeros auxilios psicológicos en centros comunales de zonas periurbanas de La Paz altamente afectadas. Mediante técnicas narrativas y rituales de escucha activa basados en la reciprocidad, se proporciona un espacio seguro para ventilar el estrés acumulado, el duelo social por los fallecimientos y la angustia de los hogares de bajos recursos.</p>
+          <ul>
+            <li>Facilitadores bilingües de la localidad que conocen las dinámicas comunitarias</li>
+            <li>Traducción no solo del idioma, sino de los significados culturales detrás de lo que se dice</li>
+          </ul>
+          <div class="result-box"><span class="label">Resultado esperado</span><p>Disminución sintomática de la ansiedad y el desamparo psicológico, fortaleciendo el tejido de resiliencia comunitaria y dotando de estrategias de afrontamiento saludables a los sectores desprotegidos.</p></div>
+        </div>
+
+        <div id="accion2" class="tab-content">
+          <h3>Laboratorios de Despolarización y Encuentro de Sentidos</h3>
+          <div class="tab-meta-grid">
+            <div class="item"><span class="label">Población objetivo</span><p>Líderes de juntas vecinales del centro urbano, representantes de los sectores movilizados, transportistas y colectivos de la sociedad civil organizada de La Paz.</p></div>
+            <div class="item"><span class="label">Enfoque intercultural aplicado</span><p>Contacto Intergrupal Plural y diálogo horizontal crítico, orientados a la reconciliación identitaria.</p></div>
+          </div>
+          <p><strong>Descripción:</strong> talleres interactivos basados en el sociodrama y la inversión de roles. Se convoca a representantes locales de distintos espectros sociales para recrear las vivencias de la contraparte durante la crisis, como vagar buscando alimentos o atención médica versus resistir en las rutas bajo condiciones de precariedad, facilitando la deconstrucción de estereotipos y el reconocimiento del trauma mutuo.</p>
+          <div class="result-box"><span class="label">Resultado esperado</span><p>Disminución ostensible de los prejuicios mutuos, reducción de la violencia verbal y generación de acuerdos mínimos de convivencia para respetar cordones sanitarios e insumos críticos durante crisis futuras.</p></div>
+        </div>
+
+        <div id="accion3" class="tab-content">
+          <h3>Campaña Comunicacional Intercultural</h3>
+          <div class="tab-meta-grid">
+            <div class="item"><span class="label">Población objetivo</span><p>Ciudadanía paceña en general, con énfasis en usuarios de plataformas virtuales e internautas de las urbes de La Paz y El Alto.</p></div>
+            <div class="item"><span class="label">Enfoque intercultural aplicado</span><p>Interculturalidad Crítica y Medios Inclusivos, desafiando las asimetrías epistémicas y de comunicación social.</p></div>
+          </div>
+          <p><strong>Descripción:</strong> diseño y difusión de micro-podcasts informativos, infografías digitales y cápsulas radiales emitidas en medios masivos y redes sociales. El contenido visibiliza historias reales de solidaridad ciudadana surgidas durante la crisis, como la olla comunitaria o el apoyo médico voluntario, promoviendo la empatía cívica y la desactivación del lenguaje de odio y racismo en entornos digitales bolivianos.</p>
+          <div class="result-box"><span class="label">Resultado esperado</span><p>Mitigación del clima de conflicto mediático, reducción de la hostilidad digital y resignificación del sentido de interdependencia colectiva entre el campo y la ciudad.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- 5. TEORIA ---------- -->
+    <section class="view" id="view-teoria">
+      <div class="view-head">
+        <span class="view-eyebrow">05 · Enfoque teórico de sustentación</span>
+        <h1 class="view-title">Base teórica</h1>
+      </div>
+
+      <h3 style="margin-bottom:.8rem;font-size:1.02rem;">Modelo de Aculturación de John Berry</h3>
+      <p class="cite">El Modelo de Aculturación de Berry permite entender que la paralización estructural en La Paz no es solo un conflicto político, sino una profunda crisis de separación y asimilación forzada, donde las matrices culturales de Bolivia chocan violentamente. Las organizaciones sociales y campesinas recurren a la <strong>separación</strong> como estrategia de aculturación, refugiándose en su racionalidad comunitaria y usando el bloqueo como mecanismo para proteger su identidad de origen. La racionalidad institucional urbana, en cambio, exige una <strong>asimilación</strong> implícita, pretendiendo que los sectores movilizados abandonen su protesta histórica para someterse a la lógica del orden y el individualismo formal. Este choque bidimensional cancela la verdadera integración bicultural, deshumanizando al sujeto rural mediante estereotipos (Berry, 1997).</p>
+
+      <table>
+        <thead><tr><th>¿Mantiene su cultura de origen?</th><th>¿Busca contacto con la cultura local?</th><th>Estrategia resultante</th><th>¿En qué consiste?</th></tr></thead>
+        <tbody>
+          <tr><td>Sí</td><td>Sí</td><td><strong>Integración</strong></td><td>El individuo mantiene sus raíces vivas pero adopta los códigos del nuevo lugar. Es el verdadero biculturalismo.</td></tr>
+          <tr><td>No</td><td>Sí</td><td><strong>Asimilación</strong></td><td>El migrante abandona su identidad de origen para mimetizarse por completo con la cultura local y ser aceptado.</td></tr>
+          <tr><td>Sí</td><td>No</td><td><strong>Separación</strong></td><td>El individuo se refugia exclusivamente en su comunidad de origen (enclaves étnicos) y rechaza o evita interactuar con la sociedad local.</td></tr>
+          <tr><td>No</td><td>No</td><td><strong>Marginación</strong></td><td>La persona pierde el lazo con su cultura materna, pero tampoco logra o quiere conectar con la cultura receptora. Es un estado de exclusión y vacío cultural.</td></tr>
+        </tbody>
+      </table>
+      <p class="cite" style="font-style:italic;">"Proceso mediante el cual las personas cambian, siendo influenciadas por el contacto con otra cultura y participando de los cambios generales de su cultura" (Berry, 1990, p. 460).</p>
+
+      <div class="theory-block">
+        <h3>Teoría del Colectivismo e Individualismo de Harry Triandis</h3>
+        <p>Permite desglosar la fractura social al evidenciar el choque entre un <strong>colectivismo vertical rígido</strong> y un <strong>idiocentrismo urbano</strong>. Los sectores campesinos y gremiales operan bajo una estructura colectiva donde las metas grupales son prioritarias, y la cohesión interna se asegura mediante normas, multas y sanciones sociales que fuerzan la movilización de las bases. La ciudadanía del centro urbano, en cambio, responde desde el idiocentrismo, priorizando la autonomía, el libre tránsito y sus metas económicas personales por encima de las demandas colectivas, lo que activa prejuicios históricos y polarización ideológica.</p>
+        <ul>
+          <li><strong>Idiocentrismo:</strong> tiende a pensar y actuar de forma individual, aunque viva en una sociedad mayormente colectiva; frente a las movilizaciones, prioriza sus metas personales, su economía diaria y su autonomía por encima de las demandas grupales del bloqueo.</li>
+          <li><strong>Alocentrismo:</strong> piensa y actúa de forma colectiva, orientado hacia el endogrupo, incluso si se desenvuelve en un entorno con fuertes presiones individualistas (Triandis, 1981).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ---------- 6. ETICA ---------- -->
+    <section class="view" id="view-etica">
+      <div class="view-head">
+        <span class="view-eyebrow">06 · Consideraciones éticas y culturales</span>
+        <h1 class="view-title">Límites del rol profesional</h1>
+        <p class="view-desc">Para evitar la imposición cultural, la intervención se diseña de forma participativa con las mismas comunidades involucradas.</p>
+      </div>
+
+      <div class="etica-grid">
+        <div class="card etica-item"><span class="etica-ic bg-c"><svg class="ic"><use href="#i-chat"/></svg></span><div><strong>Facilitadores bilingües</strong><p>De la localidad, que conocen las dinámicas internas y pueden traducir no solo el idioma sino los significados culturales detrás de lo que se dice.</p></div></div>
+        <div class="card etica-item"><span class="etica-ic bg-b"><svg class="ic"><use href="#i-scale"/></svg></span><div><strong>Neutralidad clínica estricta</strong><p>Se valida el sufrimiento de ambos lados sin jerarquizar dolores ni tomar partido político.</p></div></div>
+        <div class="card etica-item"><span class="etica-ic bg-a"><svg class="ic"><use href="#i-alert"/></svg></span><div><strong>Riesgo de desmovilización</strong><p>Que la intervención sea percibida como un mecanismo de control social disfrazado de apoyo psicológico. Se aclarará desde el inicio que el objetivo no es cuestionar las demandas sociales sino atender el impacto humano de la crisis.</p></div></div>
+        <div class="card etica-item"><span class="etica-ic bg-c"><svg class="ic"><use href="#i-shield"/></svg></span><div><strong>Riesgo de retraumatización</strong><p>Durante los talleres de inversión de roles, se requiere supervisión profesional constante y protocolos de contención listos antes de cada sesión.</p></div></div>
+        <div class="card etica-item"><span class="etica-ic bg-b"><svg class="ic"><use href="#i-checkdoc"/></svg></span><div><strong>Consentimiento informado</strong><p>Se garantizará en todos los espacios, junto con la confidencialidad de los testimonios.</p></div></div>
+      </div>
+    </section>
+
+    <!-- ---------- 7. CONCLUSION ---------- -->
+    <section class="view" id="view-conclusion">
+      <div class="view-head">
+        <span class="view-eyebrow">07 · Conclusión</span>
+        <h1 class="view-title">Conclusión</h1>
+      </div>
+      <div class="card" style="padding:2.1rem 2.3rem;">
+        <p style="font-size:.95rem;color:var(--text-main);margin-bottom:0;">Se puede observar que hay una urgente necesidad de abordar la crisis de conflictos sociales en Bolivia más allá de sus repercusiones políticas y económicas: se debe visibilizar la fractura psicosocial y el dolor humano que atraviesa la ciudadanía paceña, articulando estrategias desde la Psicología de la Interculturalidad para proveer herramientas inmediatas de alivio emocional ante el estrés y el desamparo de los sectores vulnerables.</p>
+        <div class="conclusion-quote">Transformar el choque cultural en una oportunidad histórica para la convivencia con empatía mutua entre los sectores sociales y el gobierno.</div>
+      </div>
+    </section>
+
+    <!-- ---------- 8. REFERENCIAS ---------- -->
+    <section class="view" id="view-referencias">
+      <div class="view-head">
+        <span class="view-eyebrow">08 · Fuentes citadas</span>
+        <h1 class="view-title">Referencias bibliográficas</h1>
+      </div>
+      <div class="ref-list">
+        <div class="card ref-item"><span class="ref-name">EFE. (2026, 23 de junio). Rodrigo Paz dice que el bloqueo de las vías «ha sido derrotado» y que Bolivia «se tiene que ordenar».</span><a href="https://efe.com/mundo/rodrigo-paz-bolivia-vias-bloqueos-estado-excepcion/" target="_blank" rel="noopener">efe.com/mundo/rodrigo-paz-bolivia-vias-bloqueos-estado-excepcion</a></div>
+        <div class="card ref-item"><span class="ref-name">La Razón. (2026, 13 de junio). Cadinpaz: "los bloqueos no pueden volver a suceder".</span><a href="https://larazon.bo/energias-negocios/2026/06/13/cadinpaz-los-bloqueos-no-pueden-volver-a-suceder/" target="_blank" rel="noopener">larazon.bo/.../cadinpaz-los-bloqueos-no-pueden-volver-a-suceder</a></div>
+        <div class="card ref-item"><span class="ref-name">ABI. (2026, mayo). Salud mental: alertan incremento de casos de ansiedad, depresión y violencia intrafamiliar por bloqueos.</span><a href="https://abi.bo/salud-mental-alertan-incremento-de-casos-de-ansiedad-depresion-y-violencia-intrafamiliar-por-bloqueos/" target="_blank" rel="noopener">abi.bo/salud-mental-alertan-incremento-de-casos...</a></div>
+        <div class="card ref-item"><span class="ref-name">Berry, J. W. (1997). Immigration, acculturation and adaptation. Applied Psychology: An International Review, 46(1), 5–61.</span><a href="https://www.memoria.fahce.unlp.edu.ar/trab_eventos/ev.1545/ev.1545.pdf" target="_blank" rel="noopener">memoria.fahce.unlp.edu.ar/trab_eventos/ev.1545</a></div>
+        <div class="card ref-item"><span class="ref-name">Triandis, H. C. (1981). Influencias culturales en el comportamiento social. Trabajo presentado al XVIII Congreso Interamericano de Psicología, Santo Domingo, República Dominicana.</span></div>
+        <div class="card ref-item"><span class="ref-name">Correo del Sur. (2026). Declaraciones de Verónica Alfaro, presidenta del Colegio de Psicólogos de Bolivia.</span></div>
+        <div class="card ref-item"><span class="ref-name">Infobae. (2026). Cobertura de los bloqueos en Bolivia.</span></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+function closeSidebar(){
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('show');
+}
+function goView(view){
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active', b.dataset.view===view));
+  document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active', v.id==='view-'+view));
+  document.querySelector('.main').scrollTo(0,0);
+  closeSidebar();
+}
+document.querySelectorAll('.nav-item').forEach(btn=>{
+  btn.addEventListener('click', ()=> goView(btn.dataset.view));
+});
+document.getElementById('menuBtn').addEventListener('click', ()=>{
+  document.getElementById('sidebar').classList.add('open');
+  document.getElementById('overlay').classList.add('show');
+});
+document.getElementById('overlay').addEventListener('click', closeSidebar);
+
+function openTab(evt, tabId){
+  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  evt.currentTarget.classList.add('active');
+}
+</script>
+</body>
+</html>
